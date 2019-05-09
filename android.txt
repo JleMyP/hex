@@ -1,0 +1,3 @@
+title=hex
+author=my
+orientation=landscape
