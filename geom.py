@@ -55,19 +55,23 @@ def asct(x, typ=1):
 
     if x in sct_list:
         a = sct_list.index(x)
+
         if a > 180:
             a = 360 - a
+
         return a
 
     for a in range(360):
         if sct_list[a] < x < sct_list[a + 1]:
             if a > 180:
                 a = 360 - a
+
             return a
 
 
 def move(angle, ln):
-    x, y = ln * sct(angle, 2), ln * sct(angle)
+    x = ln * sct(angle, 2)
+    y = ln * sct(angle)
     return [x, y]
 
 
@@ -77,10 +81,13 @@ def angle_to_point(pos1, pos2):
     ln = m_vektor(pos1, pos2)
     sin = abs(y2 - y1) / ln
     a = asct(sin)
+
     if y1 < y2:
         a = -a
+
     if 0 < a < 90 and x1 > x2:
         a = 180 - a
+
     return convert(a)
 
 
@@ -90,21 +97,18 @@ def get_func(p1, p2, type=1):
     if angle in (90, 270):
         if type == 1:
             return None
-        else:
-            return lambda x: p1[0]
+        return lambda x: p1[0]
     elif angle in (0, 180):
         if type == 1:
             return lambda x: p1[1]
-        else:
-            return None
+        return None
 
     a = float(p2[1] - p1[1]) / float(p2[0] - p1[0])
     b = p1[1] - a * p1[0]
 
     if type == 1:
         return lambda x: a * x + b
-    else:
-        return lambda y: (y - b) / a
+    return lambda y: (y - b) / a
 
 
 sin_list, cos_list, tan_list = init_lists()
